@@ -8,5 +8,5 @@ This project represents a blockchain-based iteration of Paypal, which serves as 
 
 ## What still needs to be completed:
 
-- Backend script to interact with smart contract
+- Backend script
 - Frontend in React
