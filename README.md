@@ -4,7 +4,7 @@ This project represents a blockchain-based iteration of Paypal, which serves as 
 
 ## So far I've completed:
 
-- The smart contract [see file](contracts/Paypal.sol)
+- The smart contract ([see file](contracts/Paypal.sol))
 
 ## What still needs to be completed:
 
