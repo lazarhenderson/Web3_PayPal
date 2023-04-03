@@ -1,13 +1,12 @@
-# Sample Hardhat Project
+# Web3 Paypal
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This project represents a blockchain-based iteration of Paypal, which serves as a showcase of my proficiency in blockchain technology, smart contracts and DeFi. Through the implementation of a decentralized payment solution, the project enables the sending and receiving of transactions among users on-chain, while also featuring the ability to assign names to addresses and attach messages to facilitate more convenient payment management. Moreover, the system maintains a detailed transaction history, which is readily accessible through a user-friendly interface, ensuring that users can keep track of their transactional activities with ease.
 
-Try running some of the following tasks:
+So far I've completed:
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+- The Paypal smart contract
+
+What still needs to be completed:
+
+- Backend script to interact with smart contract
+- Frontend in React
