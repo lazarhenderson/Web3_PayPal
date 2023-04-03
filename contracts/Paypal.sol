@@ -118,12 +118,14 @@ contract Paypal {
     // Get all requests sent to a User
     function getMyRequests(address _user) public view returns (address[] memory, uint256[] memory, string[] memory, string[] memory) {
 
-        address[] memory addrs = new address[](requests[_user].length);
-        uint256[] memory amnt = new uint256[](requests[_user].length);
-        string[] memory msge = new string[](requests[_user].length);
-        string[] memory nme = new string[](requests[_user].length);
+        uint256 user_requests_length = requests[_user].length;
 
-        for (uint i=0; i < requests[_user].length; i++) {
+        address[] memory addrs = new address[](user_requests_length);
+        uint256[] memory amnt = new uint256[](user_requests_length);
+        string[] memory msge = new string[](user_requests_length);
+        string[] memory nme = new string[](user_requests_length);
+
+        for (uint i=0; i < user_requests_length; i++) {
             request storage myRequests = requests[_user][i];
             addrs[i] = myRequests.requestor;
             amnt[i] = myRequests.amount;
