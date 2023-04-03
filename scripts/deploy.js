@@ -1,16 +1,12 @@
 const hre = require("hardhat");
 
 async function main() {
-  const Lock = await hre.ethers.getContractFactory("Paypal");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  const Paypal = await hre.ethers.getContractFactory("Paypal");
+  const paypal = await Paypal.deploy();
 
-  await lock.deployed();
+  await paypal.deployed();
 
-  console.log(
-    `Lock with ${ethers.utils.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-  );
+  console.log("Paypal contract address: ", paypal.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
