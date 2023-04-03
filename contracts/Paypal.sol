@@ -54,7 +54,7 @@ contract Paypal {
     }
 
 
-    // Create a request
+    // Create and record a payment request
     function createRequest(address user, uint256 _amount, string memory _message) public {
 
         // Create request struct, temporarily store in memory
@@ -90,7 +90,8 @@ contract Paypal {
         myRequests.pop(); // Now we remove the last request (one we just paid) from the myRequests array
 
     }
-
+    
+    // Record payment history
     function addHistory(address sender, address receiver, uint256 _amount, string memory _message) private {
 
         sendReceive memory newSend;
