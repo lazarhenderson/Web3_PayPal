@@ -57,16 +57,15 @@ contract Paypal {
     // Create and record a payment request
     function createRequest(address user, uint256 _amount, string memory _message) public {
 
-        // Create request struct, temporarily store in memory
-        request memory newRequest;
-        newRequest.requestor = msg.sender;
-        newRequest.amount = _amount;
-        newRequest.message = _message;
-        if (names[msg.sender].hasName) {
+        request memory newRequest; // Create request struct, temporarily store in memory as newRequest
+        newRequest.requestor = msg.sender; // Set caller of function as the requestor to newRequest
+        newRequest.amount = _amount; // Amount is passed into newRequest
+        newRequest.message = _message; // Message is passed into newRequest
+        if (names[msg.sender].hasName) { // If msg.sender hasName, then put their name into newRequest
             newRequest.name = names[msg.sender].name;
-        }
+        } // If no name set then this will be an empty string
 
-        requests[user].push(newRequest); // this pushes the newRequest struct INTO the requests[] array of user
+        requests[user].push(newRequest); // This pushes the newRequest struct into the requests[] array of user
 
     }
 
@@ -84,7 +83,7 @@ contract Paypal {
 
         payable(payableRequest.requestor).transfer(msg.value); // Takes requestor and transfers msg.value to the requestor
 
-        addHistory(msg.sender, payableRequest.requestor, payableRequest.amount, payableRequest.message);
+        addHistory(msg.sender, payableRequest.requestor, payableRequest.amount, payableRequest.message); // Add requests into history storage array of sender & receiver respectively
 
         myRequests[_request] = myRequests[myRequests.length - 1]; // Swap last request in myRequests & swap with current _request we just paid
         myRequests.pop(); // Now we remove the last request (one we just paid) from the myRequests array
@@ -94,38 +93,41 @@ contract Paypal {
     // Record payment history
     function addHistory(address sender, address receiver, uint256 _amount, string memory _message) private {
 
-        sendReceive memory newSend;
-        newSend.action = "-";
-        newSend.amount = _amount;
-        newSend.message = _message;
-        newSend.otherPartyAddress = receiver;
-        if (names[receiver].hasName = true) {
+        sendReceive memory newSend; // Create temp var that is sendReceive struct
+        newSend.action = "-"; // Set negative symbol as action of newSend as sender is sending money
+        newSend.amount = _amount; // Set amount of newSend sender struct
+        newSend.message = _message; // Set message of newSend
+        newSend.otherPartyAddress = receiver; // Set other party involved in transaction
+        if (names[receiver].hasName) { // If receiver hasName, then put their name into newSend
             newSend.otherPartyName = names[receiver].name;
-        }
-        history[sender].push(newSend);
+        } // If no name set then this will be an empty string
+        history[sender].push(newSend); // Add to sender's history array of transactions
 
-        sendReceive memory newReceive;
-        newReceive.action = "+";
-        newReceive.amount = _amount;
-        newReceive.message = _message;
-        newReceive.otherPartyAddress = sender;
-        if (names[sender].hasName = true) {
+        sendReceive memory newReceive; // Create temp var that is sendReceive struct
+        newReceive.action = "+"; // Set positive symbol as the receiver is gaining money
+        newReceive.amount = _amount; // Set amount of newSend receiver struct
+        newReceive.message = _message; // Set message of newSend receiver struct
+        newReceive.otherPartyAddress = sender; // Set other party involved in transaction
+        if (names[sender].hasName) { // If sender hasName, then put their name into newSend
             newReceive.otherPartyName = names[sender].name;
-        }
-        history[receiver].push(newReceive);
+        }// If no name set then this will be an empty string
+        history[receiver].push(newReceive); // Add to receiver's history array of transactions
     }
 
 
     // Get all requests sent to a User
     function getMyRequests(address _user) public view returns (address[] memory, uint256[] memory, string[] memory, string[] memory) {
 
+        // Get length of user's requests array
         uint256 user_requests_length = requests[_user].length;
 
+        // Create temp arrays that will get populated by the for loop
         address[] memory addrs = new address[](user_requests_length);
         uint256[] memory amnt = new uint256[](user_requests_length);
         string[] memory msge = new string[](user_requests_length);
         string[] memory nme = new string[](user_requests_length);
 
+        // Loop through user's requests array and populate each individual request item (addrs, amnt, msge, nme)
         for (uint i=0; i < user_requests_length; i++) {
             request storage myRequests = requests[_user][i];
             addrs[i] = myRequests.requestor;
@@ -134,6 +136,7 @@ contract Paypal {
             nme[i] = myRequests.name;
         }
 
+        // Will return 4 arrays each of will are: addrs, amnt, msge & nme
         return (addrs, amnt, msge, nme);
     }
     
@@ -143,6 +146,7 @@ contract Paypal {
         return history[_user];
     }
 
+    // Get the name assigned to address
     function getMyName(address _user) public view returns(userName memory) {
         return names[_user];
     }
