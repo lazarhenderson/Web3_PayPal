@@ -3,7 +3,7 @@ pragma solidity ^0.8.9;
 
 // import "hardhat/console.sol";
 
-contract Paypal {
+contract PayPal {
 
     // Define the owner of the smart contract
     address public owner;
