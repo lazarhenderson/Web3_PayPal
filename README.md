@@ -9,4 +9,4 @@ This project represents a blockchain-based iteration of PayPal, which serves as 
 ## What still needs to be completed:
 
 - Backend script
-- Frontend in React
+- Frontend script
